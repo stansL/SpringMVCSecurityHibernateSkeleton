@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<h:head>
+	<title>No Apache Error</title>
+
+</h:head>
+
+<h:body>
+	<sec:authorize access="isAuthenticated()">
+		<h:outputLink value="#{request.contextPath}/j_spring_security_logout">Logout</h:outputLink>
+	</sec:authorize>
+
+	<p:outputLabel>&#160;</p:outputLabel>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<h:outputLink
+			value="#{request.contextPath}/pages/secure/settings/settings.xhtml">Settings</h:outputLink>
+
+	</sec:authorize>
+
+	<h:form id="loginForm">
+
+		<p:panel header="Login">
+			<h:outputLabel value="Some open page for access " />
+			<p:spinner></p:spinner>
+
+			<p:dataTable var="patient" value="#{patientController.patients}">
+				<p:column headerText="Id">
+					<h:outputText value="#{patient.patientId}" />
+				</p:column>
+
+				<p:column headerText="First Name">
+					<h:outputText value="#{patient.firstName}" />
+				</p:column>
+
+				<p:column headerText="Middle Name">
+					<h:outputText value="#{patient.middleName}" />
+				</p:column>
+
+				<p:column headerText="D.O.B">
+					<h:outputText value="#{patient.dateOfBirth}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+
+</h:body>
+</html>

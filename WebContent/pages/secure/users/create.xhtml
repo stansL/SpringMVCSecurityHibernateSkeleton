@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<p:growl id="growl" sticky="false" showDetail="true" />
+		<h:panelGrid columns="2">
+
+			<p:outputLabel value="First Name: " for="firstName" />
+			<p:inputText id="firstName"
+				value="#{userController.current.firstName}" title="First Name:" required="true"  requiredMessage="Enter First Name"/>
+			<p:outputLabel value="Last Name :" for="lastName" />
+			<p:inputText id="lastName" value="#{userController.current.lastName}"
+				title="Last Name :" required="true"  requiredMessage="Enter Last Name"/>
+			<p:outputLabel value="Username : " for="username" />
+			<p:inputText id="username" value="#{userController.current.username}"
+				title="Username" required="true"  requiredMessage="Enter Username"/>
+			<p:outputLabel value="Password" for="password" />
+			<p:password id="password" value="#{userController.current.password}"
+				title="Password" required="true"
+				requiredMessage="Password Required!" match="confirmpassword"
+				validatorMessage="Passwords Must Match!!" feedback="true" />
+
+			<p:outputLabel value="Password" for="confirmpassword" />
+			<p:password id="confirmpassword"
+				value="#{userController.current.password}" title="Password"
+				required="true" requiredMessage="Enter Password Confirmation" />
+
+			<p:outputLabel value="Enabled" for="enabled" />
+			<p:selectBooleanCheckbox id="enabled"
+				value="#{userController.current.enabled}" title="Enabled" />
+			<p:outputLabel value="Account Non Expired: " for="accountNonExpired" />
+			<p:selectBooleanCheckbox id="accountNonExpired"
+				value="#{userController.current.accountNonExpired}"
+				title="Account Non Expired" />
+			<p:outputLabel value="Credentials Non Expired :"
+				for="credentialsNonExpired" />
+			<p:selectBooleanCheckbox id="credentialsNonExpired"
+				value="#{userController.current.credentialsNonExpired}"
+				title="Credentials Non Expired" />
+			<p:outputLabel value="Account Non Locked :" for="accountNonLocked" />
+			<p:selectBooleanCheckbox id="accountNonLocked"
+				value="#{userController.current.accountNonLocked}"
+				title="Account Non Locked" />
+
+			<p:outputLabel value="Authority : " for="authority" />
+			<p:selectOneMenu id="authority" style="width:160px"
+				value="#{userController.current.authorities}" title="Authority" required="true" requiredMessage="Select and Access Level">
+				<f:selectItems
+					value="#{authoritiesController.itemsAvailableSelectOne}"/>
+			</p:selectOneMenu>
+
+		</h:panelGrid>
+		<br />
+		<h:commandLink action="#{userController.create}" value="Create User" />
+		<br />
+		<br />
+
+		<br />
+		<h:link outcome="/index" value="Home" />
+	</h:form>
+
+</h:body>
+
+
+</html>

@@ -1,0 +1,188 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<sec:authorize access="isAuthenticated()">
+		<h:outputLink value="#{request.contextPath}/j_spring_security_logout">Logout</h:outputLink>
+	</sec:authorize>
+
+	<p:outputLabel>&#160;</p:outputLabel>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<h:outputLink
+			value="#{request.contextPath}/pages/secure/settings/settings.xhtml">Settings</h:outputLink>
+
+	</sec:authorize>
+
+	<h:form>
+
+		<p:growl id="growl" sticky="false" showDetail="true" />
+
+		<p:wizard flowListener="#{userWizard.onFlowProcess}">
+			<p:tab id="personal" title="Personal">
+				<p:panel header="Personal Details">
+					<p:messages />
+					<h:panelGrid columns="4" columnClasses="label, value">
+						<p:outputLabel value="First Name" for="firstname" />
+						<p:inputText id="firstname"
+							value="#{userWizard.patient.firstName}" required="true"
+							label="Firstname" />
+
+						<p:outputLabel value="Last Name :" for="lastname" />
+						<p:inputText id="lastname" value="#{userWizard.patient.surname}"
+							required="true" label="Surname" />
+
+						<p:outputLabel value="Middle Name :" for="middlename" />
+						<p:inputText value="#{userWizard.patient.middleName}"
+							id="middlename" required="true" label="Middle Name" />
+
+						<p:outputLabel value="Age:" for="effect" />
+						<p:calendar id="effect" value="#{userWizard.patient.dateOfBirth}"
+							effect="explode" />
+
+						<p:outputLabel value="Blood Group" for="bloodGroupId" />
+						<p:selectOneMenu id="bloodGroupId" style="width:160px"
+							value="#{userWizard.patient.bloodGroup}" title="#Blood Group">
+							<f:selectItems
+								value="#{bloodGroupController.itemsAvailableSelectOne}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Nationality :" for="countryCode" />
+						<p:selectOneMenu id="countryCode" style="width:160px"
+							value="#{userWizard.patient.country}" title="Nationality"
+							required="true" requiredMessage="Select Patient Nationality">
+							<f:selectItems
+								value="#{countryController.itemsAvailableSelectOne}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Marital Status" for="maritalStatusId" />
+						<p:selectOneMenu id="maritalStatusId" style="width:160px"
+							value="#{userWizard.patient.maritalStatus}"
+							title="Marital Status" required="true"
+							requiredMessage="Marital Status Required">
+							<f:selectItems
+								value="#{maritalStatusController.itemsAvailableSelectOne}" />
+						</p:selectOneMenu>
+
+
+						<p:outputLabel value="Gender" for="genderId" />
+						<p:selectOneMenu id="genderId" style="width:160px"
+							value="#{userWizard.patient.gender}" title="Gender"
+							required="true" requiredMessage="Gender is required!">
+							<f:selectItems
+								value="#{genderController.itemsAvailableSelectOne}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Religion" for="religionId" />
+						<p:selectOneMenu id="religionId" style="width:160px"
+							value="#{userWizard.patient.religion}" title="Religion">
+							<f:selectItems
+								value="#{religionController.itemsAvailableSelectOne}" />
+						</p:selectOneMenu>
+
+
+
+
+						<h:outputText value="Skip to last: " />
+						<h:selectBooleanCheckbox value="#{userWizard.skip}" />
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="address" title="Address">
+				<p:panel header="Address Details">
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+						<h:outputText value="Street: " />
+						<p:inputText value="userWizard.patient.firstName" />
+
+						<h:outputText value="Postal Code: " />
+						<p:inputText value="userWizard.patient.firstName" />
+
+						<h:outputText value="City: " />
+						<p:inputText value="userWizard.patient.firstName" />
+
+						<h:outputText value="Skip to last: " />
+						<h:selectBooleanCheckbox value="#{userWizard.skip}" />
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="contact" title="Contact">
+				<p:panel header="Contact Information">
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+						<h:outputText value="Email: *" />
+						<p:inputText value="userWizard.patient.firstName" required="true"
+							label="Email" />
+
+						<h:outputText value="Phone: " />
+						<p:inputText value="userWizard.patient.firstName" />
+
+						<h:outputText value="Additional Info: " />
+						<p:inputText value="userWizard.patient.firstName" />
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="confirm" title="Confirmation">
+				<p:panel header="Confirmation">
+					<h:panelGrid id="confirmation" columns="3"
+						columnClasses="grid,grid,grid">
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="Firstname: " />
+							<h:outputText value="#{userWizard.patient.firstName}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Lastname: " />
+							<h:outputText value="#{userWizard.patient.surname}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Age: " />
+							<h:outputText value="#{userWizard.patient.dateOfBirth}"
+								styleClass="outputLabel" />
+						</h:panelGrid>
+
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="Street: " />
+							<h:outputText value="" styleClass="outputLabel" />
+
+							<h:outputText value="Postal: " />
+							<h:outputText value="" styleClass="outputLabel" />
+
+							<h:outputText value="City: " />
+							<h:outputText value="" styleClass="outputLabel" />
+						</h:panelGrid>
+
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="Email: " />
+							<h:outputText value="" styleClass="outputLabel" />
+
+							<h:outputText value="Phone " />
+							<h:outputText value="" styleClass="outputLabel" />
+
+							<h:outputText value="Info: " />
+							<h:outputText value="" styleClass="outputLabel" />
+
+							<h:outputText />
+							<h:outputText />
+						</h:panelGrid>
+					</h:panelGrid>
+
+
+
+					<h:commandLink action="#{userWizard.create}" value="Save Patient" />
+				</p:panel>
+			</p:tab>
+		</p:wizard>
+
+	</h:form>
+
+</h:body>
+</html>
