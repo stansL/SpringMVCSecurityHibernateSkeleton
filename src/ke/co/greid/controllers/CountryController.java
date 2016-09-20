@@ -1,7 +1,8 @@
 package ke.co.greid.controllers;
 
-import java.util.List;
-import java.util.logging.Logger;
+import ke.co.greid.entities.Country;
+import ke.co.greid.services.CountryService;
+import ke.co.greid.utils.JsfUtil;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -11,12 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
-
-import ke.co.greid.entities.Country;
-import ke.co.greid.entities.Religion;
-import ke.co.greid.services.CountryService;
-import ke.co.greid.services.ReligionService;
-import ke.co.greid.utils.JsfUtil;
+import java.util.List;
+import java.util.logging.Logger;
 
 @ManagedBean
 public class CountryController {
@@ -63,7 +60,7 @@ public class CountryController {
             CountryController controller = (CountryController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "countryController");
             
-            logy.info(controller.getCountry(getKey(value))+"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            logy.info(controller.getCountry(getKey(value))+"");
             return controller.getCountry(getKey(value));
         }
 
